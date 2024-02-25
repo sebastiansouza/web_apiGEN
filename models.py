@@ -5,34 +5,35 @@ from sqlalchemy.ext.declarative import declarative_base
 Base = declarative_base()
 
 class User(Base):
-    __tablename__ = 'usuario'
+    __tablename__ = 'users'  
 
     id = Column(Integer, primary_key=True, index=True)
-    nome = Column(String, index=True)
+    name = Column(String, index=True)  
     email = Column(String, unique=True, index=True)
     foto = Column(String)
 
-    # Relacionamento com as postagens (sem carregamento automático)
-    postagens = relationship("Postagem", back_populates="autor", lazy='select')
+    posts = relationship("Post", back_populates="author", lazy='select')
 
-class Postagem(Base):
-    __tablename__ = 'postagem'
-
-    id = Column(Integer, primary_key=True, index=True)
-    titulo = Column(String, index=True)
-    texto = Column(String)
-    data = Column(DateTime)
-    usuario_id = Column(Integer, ForeignKey('usuario.id'))
-    tema_id = Column(Integer, ForeignKey('tema.id'))
-
-    # Relacionamento com o autor da postagem
-    autor = relationship("User", back_populates="postagens")
-
-class Tema(Base):
-    __tablename__ = 'tema'
+class Post(Base):
+    __tablename__ = 'posts'
 
     id = Column(Integer, primary_key=True, index=True)
-    descricao = Column(String)
+    title = Column(String)  
+    content = Column(String)   
+    date = Column(DateTime)
+    user_id = Column(Integer, ForeignKey('users.id')) 
+    theme_id = Column(Integer, ForeignKey('themes.id')) 
+    
+    author = relationship("User", back_populates="posts")
 
-    # Relacionamento com as postagens (sem carregamento automático)
-    postagens = relationship("Postagem", back_populates="tema", lazy='select')
+    
+    theme = relationship("Theme", back_populates="posts")
+
+class Theme(Base):
+    __tablename__ = 'themes'
+
+    id = Column(Integer, primary_key=True, index=True)
+    description = Column(String) 
+
+    
+    posts = relationship("Post", back_populates="theme", lazy='select')
