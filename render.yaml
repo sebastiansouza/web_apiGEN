@@ -1,8 +1,3 @@
-databases:
-  - name: dpg-cne4g75jm4es739np0n0-a
-    databaseName: apigen_dp3b
-    user: apigen_dp3b_user
-
 services:
   - type: web
     name: apiweb-gen
@@ -17,4 +12,6 @@ services:
       - key: SECRET_KEY
         generateValue: true
       - key: WEB_CONCURRENCY
-        value: 4
+        value:  4
+      - key: PORT
+        value:  8080 
