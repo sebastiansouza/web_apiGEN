@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  apiwebgen:
+    build: .
+    command: uvicorn main:app --host   0.0.0.0 --port   8000
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    environment:
+      - DATABASE_URL=postgresql://apigen_dp3b_user:NUEWaGlGoiPDl4huxRVACtXqD8KNxizZ@dpg-cne4g75jm4es739np0n0-a.oregon-postgres.render.com/apigen_dp3b
