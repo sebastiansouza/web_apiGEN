@@ -1,4 +1,5 @@
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
+from app.models import user_models
 from app.models.user_models import User
 from app.schemas.user_schema import UserCreate, UserUpdate
 from typing import List
@@ -11,17 +12,17 @@ def create_user(db: Session, user: UserCreate):
     # Verificar se o e-mail já está em uso
     if db.query(User).filter(User.email == user.email).first():
         raise HTTPException(status_code=409, detail="Email already registered")
-    
-    # Se o e-mail não estiver em uso, criar o usuário
-    db_user = User(email=user.email)
-    db.add(db_user)
-    db.commit()
-    db.refresh(db_user)
+    else:
+        # Se o e-mail não estiver em uso, criar o usuário
+        db_user = User(**user.model_dump())
+        db.add(db_user)
+        db.commit()
+        db.refresh(db_user)
     return db_user
 
 
 def get_users(db: Session, skip: int = 0, limit: int = 10):
-    return db.query(User).offset(skip).limit(limit).all()
+    return db.query(User).offset(skip).limit(limit).options(joinedload(user_models.User.posts)).all()
 
 
 def get_user(db: Session, user_id: int):

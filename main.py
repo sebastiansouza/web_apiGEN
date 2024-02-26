@@ -1,6 +1,7 @@
+import py_compile
 from fastapi import FastAPI
 from app.routes import user_routes, theme_routes, post_routes
-from app.database import connect, disconnect
+from app.database import connect, disconnect, create_tables
 
 # Cria uma instância do aplicativo FastAPI
 app = FastAPI()
@@ -8,6 +9,7 @@ app = FastAPI()
 # Conectar ao banco de dados ao iniciar o aplicativo
 @app.on_event("startup")
 async def startup():
+    create_tables()
     connect()
 
 # Desconectar do banco de dados ao encerrar o aplicativo
