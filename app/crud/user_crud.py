@@ -9,15 +9,10 @@ from fastapi import HTTPException
 
 
 def create_user(db: Session, user: UserCreate):
-    # Verificar se o e-mail já está em uso
-    if db.query(User).filter(User.email == user.email).first():
-        raise HTTPException(status_code=409, detail="Email already registered")
-    else:
-        # Se o e-mail não estiver em uso, criar o usuário
-        db_user = User(**user.model_dump())
-        db.add(db_user)
-        db.commit()
-        db.refresh(db_user)
+    db_user = User(**user.model_dump())
+    db.add(db_user)
+    db.commit()
+    db.refresh(db_user)
     return db_user
 
 
