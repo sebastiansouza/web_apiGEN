@@ -24,7 +24,11 @@ O projeto segue uma arquitetura MVC (Model-View-Controller), com as seguintes ca
 - Poetry: 1.1.12
 - Uvicorn: 0.27.1
 
-## Acesse a documentação da API pelo navegador em [https://web-apigen.onrender.com/docs](https://web-apigen.onrender.com/docs).
+# Acesse a documentação 
+
+O projeto foi feito o deploy usando o render. Com o dockerfile que gera uma esteira de CI/CD. Você pode conferir a documentação e entender melhor o CRUD e a API abaixo:
+
+## [render/docs](https://web-apigen.onrender.com/docs)
 
  
 ## Contribuição
