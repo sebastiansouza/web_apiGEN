@@ -3,18 +3,13 @@ services:
     name: apiweb-gen
     runtime: python
     buildCommand: "./build.sh"
-    startCommand: "uvicorn main:app --reload --host  0.0.0.0 --port  8000"
+    startCommand: "uvicorn main:app --host  0.0.0.0 --port  8000"
     envVars:
       - key: DATABASE_URL
         fromDatabase:
-          name: potencia-tech
+          name: apiweb-gen
           property: connectionString
       - key: SECRET_KEY
         generateValue: true
       - key: WEB_CONCURRENCY
         value:  4
-      - key: PORT
-        value:  8000
-        services:
-  
-
