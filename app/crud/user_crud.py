@@ -4,7 +4,6 @@ from app.models.user_models import User
 from app.schemas.user_schema import UserCreate, UserUpdate
 from typing import List
 from app.schemas.post_schema import Post 
-from fastapi import HTTPException
 
 
 

@@ -45,3 +45,4 @@ def get_posts_by_theme(db: Session, theme_id: int) -> List[Post]:
         return theme.posts
     else:
         return []
+    
